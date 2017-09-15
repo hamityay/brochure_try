@@ -1,4 +1,4 @@
-class CreateBrochurePicturesJob < ActiveJob::Base
+class CreatePicturesJob < ActiveJob::Base
   queue_as :high_priority
 
   def perform(brochure_id)
