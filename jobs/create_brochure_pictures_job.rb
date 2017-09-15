@@ -1,4 +1,4 @@
-class CreatePicturesJob < ActiveJob::Base
+class CreateBrochurePicturesJob < ActiveJob::Base
   queue_as :high_priority
 
   def perform(brochure_id)
@@ -24,7 +24,7 @@ class CreatePicturesJob < ActiveJob::Base
         antialias: 'render',
         interlace: 'none'
       })
-      self.pictures.create!(picture: File.new(picture_file_path), order_number: index, content: pdf[index].text)
+      brochure.pictures.create!(picture: File.new(picture_file_path), order_number: index, content: pdf[index].text)
     end
   end
 
