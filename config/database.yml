@@ -1,0 +1,23 @@
+development: &default
+  adapter: postgresql
+  database: pdf_to_image_development
+  encoding: utf8
+  min_messages: warning
+  pool: 5
+  timeout: 5000
+  host: localhost
+  port: 5432
+  username: hmt
+  password: hmt
+
+test:
+  <<: *default
+  database: pdf_to_image_test
+
+production:
+  <<: *default
+  database: pdf_to_image_production 
+
+staging:
+  <<: *default
+  database: pdf_to_image_staging   

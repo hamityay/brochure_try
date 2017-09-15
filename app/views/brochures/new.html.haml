@@ -1,0 +1,11 @@
+.panel.panel-default
+  .panel-heading
+    = yield :form_title
+  = simple_form_for @brochure do |f|
+    .panel-body
+      = f.error_notification
+      .form-inputs
+        = f.input :title
+        = f.input :file
+    .panel-footer
+      = f.button :submit, class: 'btn btn-lg btn-success'

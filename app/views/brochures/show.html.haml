@@ -1,0 +1,34 @@
+.panel.panel-default
+  .panel-heading
+    %i.icon-edit.icon-large
+    = "Katalog Detay"
+
+  .panel-body
+    = show_for @brochure do |s|
+      = s.attribute :title, label: "Katalog Başlığı"
+      = s.attribute :file, label: "PDF" do
+        - if @brochure.file.present?
+          = link_to @brochure.file.url, target: :_blank do
+            = @brochure.file_file_name
+        - else
+          = "Dosya yok"
+.panel.panel-default
+  .panel-heading
+    %i.icon-edit.icon-large
+    "Katallog Sayfalartı"
+  - if @brochure.pictures.size > 0
+    .panel-body
+      - @brochure.pictures.each do |picture|
+        .col-md-2
+          = link_to picture.picture.url, target: :_blank do
+            %p= image_tag picture.picture.url(:thumb)
+            %p{ toggle: :tooltip, title: "#{picture.content}"}
+              = "sayfa no :"
+              = picture.order_number
+      .panel-footer.text-center
+        .col-md-12
+          = paginate @brochure.pictures.paginate(page: params[:page])
+  - else
+    .alert.alert-warning
+      %p
+        %h3= t('view.there_is_no_data', resource: Picture.model_name.human.downcase)
