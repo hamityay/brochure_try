@@ -19,6 +19,8 @@ class BrochuresController < ApplicationController
   end
 
   def destroy
-
+    @brochure = Brochure.find params[:id]
+    @brochure.destroy
+    redirect_to root_path
   end
 end
