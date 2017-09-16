@@ -24,7 +24,7 @@ class BrochuresController < ApplicationController
       pdf[index].save(picture_file_path, {
         width: 1024, # defaults to 1024
         density: 200, # defaults to 300
-        quality: 90, # defaults to 90
+        quality: 100, # defaults to 90
         colorspace: 'RGB', # defaults to "RGB"
         alpha: 'Remove', # not used when not set
         antialias: 'render',
