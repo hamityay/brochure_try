@@ -1,17 +1,23 @@
 .jumbotron
   %h1 Welcome to Pdf_to_image
-  - if current_user
-    = link_to t('navbar.sign_out'), destroy_user_session_path, class: 'btn btn-large', method: :delete
-    .row-fluid.marketing
-      %p
-        %strong Name:
-        = current_user.name
-      %p
-        %strong Email:
-        = current_user.email
-    = link_to t('navbar.edit_login_info'), edit_user_registration_path, class: 'btn btn-large'
-    = link_to t('navbar.profile'), user_profile_path(current_user), class: 'btn btn-link'
-  - else
-    = link_to t('navbar.signup'), new_user_registration_path, class: 'btn btn-large btn-success'
-    = link_to t('navbar.signin'), new_user_session_path, class: 'btn btn-large'
+  -#- if current_user
+  -#  = link_to t('navbar.sign_out'), destroy_user_session_path, class: 'btn btn-large', method: :delete
+  -#  .row-fluid.marketing
+  -#    %p
+  -#      %strong Name:
+  -#      = current_user.name
+  -#    %p
+  -#      %strong Email:
+  -#      = current_user.email
+  -#  = link_to t('navbar.edit_login_info'), edit_user_registration_path, class: 'btn btn-large'
+  -#  = link_to t('navbar.profile'), user_profile_path(current_user), class: 'btn btn-link'
+  -#- else
+  -#  = link_to t('navbar.signup'), new_user_registration_path, class: 'btn btn-large btn-success'
+  -#  = link_to t('navbar.signin'), new_user_session_path, class: 'btn btn-large'
   = link_to "PDF Yükle", new_brochure_path, class: 'btn btn-large btn-primary'
+  %br
+  - if @brochures.size > 0
+    - @brochures.each do |b|
+      = link_to b.title, brochure_path(b)
+      = link_to 'delete', brochure_path(b), class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: t('tooltips.are_you_sure')}
+      %br
