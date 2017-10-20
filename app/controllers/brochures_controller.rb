@@ -42,7 +42,7 @@ class BrochuresController < ApplicationController
   end
 
   def show
-    if request.subdomain.present? request.domain != "herokuapp.com"
+    if request.subdomain.present? and request.domain != "herokuapp.com"
       company = User.find_by_host(request.domain)
       if params[:id].present? and company.brochure_ids.include? params[:id].to_i
         @brochure = company.brochures.find(params[:id])
