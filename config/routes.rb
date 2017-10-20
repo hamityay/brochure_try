@@ -42,6 +42,10 @@ Rails.application.routes.draw do
   end
 
   # Common pages
+
+  match '', to: 'brochures#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www'}, via: :get
+  match '/:id', to: 'brochures#show', constraints: lambda { |r| r.subdomain.present? && r.subdomain != 'www'}, via: :get
+
   root to: 'welcome#index'
   resources :brochures
 

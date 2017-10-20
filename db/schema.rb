@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915122347) do
+ActiveRecord::Schema.define(version: 20171020092541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,10 @@ ActiveRecord::Schema.define(version: 20170915122347) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "brochures", ["user_id"], name: "index_brochures_on_user_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
@@ -117,11 +120,13 @@ ActiveRecord::Schema.define(version: 20170915122347) do
     t.string   "time_zone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "host"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "brochures", "users"
   add_foreign_key "cities", "countries"
   add_foreign_key "pictures", "brochures"
 end

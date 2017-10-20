@@ -6,6 +6,7 @@ class BrochuresController < ApplicationController
 
   def create
     @brochure = Brochure.new(params.require(:brochure).permit(:title, :file))
+    @brochure.user_id = current_user.id
     @brochure.save
 
     pdf_file_path = @brochure.file.path
@@ -41,7 +42,16 @@ class BrochuresController < ApplicationController
   end
 
   def show
-    @brochure = Brochure.find params[:id]
+    if request.subdomain.present?
+      company = User.find_by_host(request.domain)
+      if params[:id].present? and company.brochure_ids.include? params[:id].to_i
+        @brochure = company.brochures.find(params[:id])
+      else
+        @brochure = company.brochures.last
+      end
+    else
+      @brochure = Brochure.find(params[:id])
+    end
   end
 
   def destroy

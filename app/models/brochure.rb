@@ -1,6 +1,7 @@
 class Brochure < ActiveRecord::Base
 
   has_many :pictures, dependent: :destroy
+  belongs_to :user
 
   has_attached_file :file
   validates_attachment :file, content_type: { content_type: 'application/pdf', message: I18n.t('activerecord.errors.models.brochure.attributes.file.invalid') }
